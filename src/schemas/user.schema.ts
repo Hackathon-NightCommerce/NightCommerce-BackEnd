@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { FuelType } from "../entities/adverts.entities"
+import { FuelType } from "../entities/products.entities"
 import { imageGallerySchemaAdvert } from "./imageGallery.schema"
 
 const addressSchema = z.object({

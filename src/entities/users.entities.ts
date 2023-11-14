@@ -10,8 +10,9 @@ import {
 } from "typeorm"
 import { getRounds, hashSync } from "bcryptjs"
 import { Address } from "./address.entities"
-import { Adverts } from "./adverts.entities"
+import { Products } from "./products.entities"
 import { Comments } from "./comments.entities"
+import {ItemsCart} from './items_cart.entities';
 
 export enum UserType {
   CUSTOMER = "customer",
@@ -42,6 +43,9 @@ export class Users {
   @Column({ type: "text", nullable: false })
   description: string
 
+  @Column({type:'boolean',nullable:false})
+  confirmed:boolean
+
   @Column({ type: "text", nullable: false })
   password: string
 
@@ -55,11 +59,14 @@ export class Users {
   @JoinColumn()
   address: Address
 
-  @OneToMany(() => Adverts, (adverts) => adverts.user)
-  adverts: Adverts[]
+  @OneToMany(() => Products, (products) => products.user)
+  products: Products[]
 
   @OneToMany(() => Comments, (comment) => comment.user)
   comments: Comments[]
+
+  @OneToMany(() => ItemsCart, itemCart => itemCart.user_id)
+  itemsCart: ItemsCart[];
 
   @BeforeInsert()
   @BeforeUpdate()

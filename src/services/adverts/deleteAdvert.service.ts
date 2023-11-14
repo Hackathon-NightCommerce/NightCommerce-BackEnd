@@ -1,5 +1,5 @@
 import { AppDataSource } from "../../data-source"
-import { Adverts } from "../../entities/adverts.entities"
+import { Adverts } from "../../entities/products.entities"
 import { AppError } from "../../errors"
 
 export const deleteAdvertService = async (advertId: number): Promise<void> => {

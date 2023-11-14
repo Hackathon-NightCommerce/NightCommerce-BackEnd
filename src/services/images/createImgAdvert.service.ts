@@ -1,5 +1,5 @@
 import { AppDataSource } from "../../data-source";
-import { Adverts } from "../../entities/adverts.entities";
+import { Adverts } from "../../entities/products.entities";
 import { ImageGallery } from "../../entities/imageGallery.entities";
 import { TImageGalleryResponse } from "../../interfaces/imageGallery.interfaces";
 import { imageGallerySchema } from "../../schemas/imageGallery.schema";
