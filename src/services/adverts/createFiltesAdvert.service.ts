@@ -1,5 +1,5 @@
 import { AppDataSource } from "../../data-source";
-import { Adverts, FuelType } from "../../entities/adverts.entities";
+import { Adverts, FuelType } from "../../entities/products.entities";
 import { Repository } from 'typeorm';
 
 export const createFiltersAdvertService = async (where: any): Promise<any> => {

@@ -1,6 +1,6 @@
 import { AppDataSource } from "../../data-source";
 import { Users } from "../../entities/users.entities";
-import { Adverts } from "../../entities/adverts.entities";
+import { Adverts } from "../../entities/products.entities";
 import { TAdvertRequest } from "../../interfaces/advert.interfaces";
 import { advertSchemaResponse } from "./../../schemas/advert.schema";
 import { ImageGallery } from "../../entities/imageGallery.entities";

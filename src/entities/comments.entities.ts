@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Users } from "./users.entities";
-import { Adverts } from "./adverts.entities";
+import { Products } from "./products.entities";
 
 @Entity()
 export class Comments {
@@ -22,6 +22,6 @@ export class Comments {
   @ManyToOne(() => Users, (users) => users.comments, { onDelete: "CASCADE" })
   user: Users;
 
-  @ManyToOne(() => Adverts, (adverts) => adverts.comments, { onDelete: "CASCADE" })
-  advert: Adverts;
+  @ManyToOne(() => Products, (products) => products.comments, { onDelete: "CASCADE" })
+  product: Products;
 }
