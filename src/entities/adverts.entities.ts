@@ -20,7 +20,7 @@ export enum category_product{
 }
 
 @Entity()
-export class Products {
+export class Adverts {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -54,15 +54,15 @@ export class Products {
   @Column({ type: "boolean", nullable: true })
   promotion: boolean;
 
-  @ManyToOne(() => Users, (user) => user.products, { onDelete: 'CASCADE' } )
+  @ManyToOne(() => Users, (user) => user.adverts, { onDelete: 'CASCADE' } )
   user: Users;
 
-  @OneToMany(() => ImageGallery, (gallery) => gallery.product)
+  @OneToMany(() => ImageGallery, (gallery) => gallery.adverts)
   images: ImageGallery[];
 
-  @OneToMany(() => Comments, (comment) => comment.product)
+  @OneToMany(() => Comments, (comment) => comment.advert)
   comments: Comments[];
 
-  @OneToMany(() => ItemsCart, itemCart => itemCart.product_id)
+  @OneToMany(() => ItemsCart, itemCart => itemCart.advert_id)
   itemsCart: ItemsCart[];
 }

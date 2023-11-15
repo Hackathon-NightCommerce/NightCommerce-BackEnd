@@ -8,9 +8,9 @@ import {
   advertSchemaRequest,
   advertSchemaRequestUpdate,
 } from "../schemas/advert.schema";
-import { filteredAdvertsController } from "./../controllers/adverts/listfiltersAdverts.controller";
+// import { filteredAdvertsController } from "./../controllers/adverts/listfiltersAdverts.controller";
 import { updateAdvertsController } from "../controllers/adverts/updateAdverts.controller";
-import { createFiltersAdvertController } from "./../controllers/adverts/createFiltesAdvert.controller ";
+// import { createFiltersAdvertController } from "./../controllers/adverts/createFiltesAdvert.controller ";
 import { adminCantUseRoute, verifyAuthToken } from "../middlewares/authorization.middleware";
 import {
   advertsExistsbyId,
@@ -19,9 +19,9 @@ import {
 
 export const advertsRoutes = Router();
 
-advertsRoutes.get("/adverts-filters", createFiltersAdvertController);
+// advertsRoutes.get("/adverts-filters", createFiltersAdvertController);
 
-advertsRoutes.get("/filtered", filteredAdvertsController);
+// advertsRoutes.get("/filtered", filteredAdvertsController);
 
 advertsRoutes.get("/", listAdvertsController);
 

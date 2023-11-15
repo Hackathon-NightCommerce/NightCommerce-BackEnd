@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { FuelType } from "../entities/products.entities";
+// import { FuelType } from "../entities/adverts.entities";
 
 export const imageGallerySchema = z.object({
   id: z.number(),
@@ -9,7 +9,7 @@ export const imageGallerySchema = z.object({
     brand: z.string(),
     model: z.string(),
     year: z.number().int().positive(),
-    fuel: z.enum([FuelType.FLEX, FuelType.HIBRIDO, FuelType.ELETRICO]),
+    fuel: z.string(),
     mileage: z.number().int(),
     color: z.string(),
     table_fipe: z.boolean(),

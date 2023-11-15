@@ -7,7 +7,7 @@ import {
     PrimaryGeneratedColumn,
   } from "typeorm";
   import { Users } from './users.entities'; 
-import { Products } from './products.entities';
+import { Adverts } from './adverts.entities';
 
 
 @Entity()
@@ -25,8 +25,9 @@ export class ItemsCart{
     @JoinColumn({ name: 'user_id' })
     user_id: Users;
   
-    @ManyToOne(() => Products, product => product.itemsCart, {onDelete:'CASCADE'})
-    @JoinColumn({ name: 'product_id' })
-    product_id: Products;
+    @ManyToOne(() => Adverts, adverts => adverts.itemsCart, {onDelete:'CASCADE'})
+    @JoinColumn({ name: 'advert_id' })
+    product_id: Adverts;
+    advert_id: any;
 
 }
