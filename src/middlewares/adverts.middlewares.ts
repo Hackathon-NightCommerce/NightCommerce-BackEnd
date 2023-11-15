@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express"
 import { AppDataSource } from "../data-source"
-import { Adverts } from "../entities/products.entities"
+import { Adverts } from "../entities/adverts.entities"
 import { Users } from "../entities/users.entities"
 import { AppError } from "./../errors"
 

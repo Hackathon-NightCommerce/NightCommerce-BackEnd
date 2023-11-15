@@ -10,7 +10,7 @@ import {
 } from "typeorm"
 import { getRounds, hashSync } from "bcryptjs"
 import { Address } from "./address.entities"
-import { Products } from "./products.entities"
+import {Adverts } from "./adverts.entities"
 import { Comments } from "./comments.entities"
 import {ItemsCart} from './items_cart.entities';
 
@@ -59,8 +59,8 @@ export class Users {
   @JoinColumn()
   address: Address
 
-  @OneToMany(() => Products, (products) => products.user)
-  products: Products[]
+  @OneToMany(() => Adverts, (adverts) => adverts.user)
+  adverts: Adverts[]
 
   @OneToMany(() => Comments, (comment) => comment.user)
   comments: Comments[]

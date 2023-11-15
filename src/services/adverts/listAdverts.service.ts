@@ -1,5 +1,5 @@
 import { AppDataSource } from "../../data-source";
-import { Adverts } from "../../entities/products.entities";
+import { Adverts } from "../../entities/adverts.entities";
 import { Repository } from 'typeorm';
 import { IPagination } from "../../interfaces/pagina.interface";
 import {allAdvertSchema } from './../../schemas/advert.schema';

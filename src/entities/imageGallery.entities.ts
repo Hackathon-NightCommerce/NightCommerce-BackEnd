@@ -1,5 +1,5 @@
 import {Column, Entity, ManyToOne, PrimaryGeneratedColumn} from 'typeorm';
-import {Products} from './products.entities';
+import {Adverts} from './adverts.entities';
 
 @Entity()
 export class ImageGallery{
@@ -9,7 +9,7 @@ export class ImageGallery{
     @Column({ type: 'text' })
     image: string;
 
-    @ManyToOne(() => Products, products => products.images, { onDelete: "CASCADE" })
-    product:Products
+    @ManyToOne(() => Adverts, adverts => adverts.images, { onDelete: "CASCADE" })
+    adverts:Adverts
 
 }

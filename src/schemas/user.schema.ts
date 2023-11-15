@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { FuelType } from "../entities/products.entities"
+// import { FuelType } from "../entities/adverts.entities"
 import { imageGallerySchemaAdvert } from "./imageGallery.schema"
 
 const addressSchema = z.object({
@@ -25,6 +25,7 @@ export const userSchema = z.object({
     message: "Data deve estar no formato YYYY-MM-DD",
   }),
   description: z.string(),
+  confirmed:z.boolean().default(false),
   password: z.string(),
   type_user: z.enum(["customer", "seller", "admin"]),
   address: addressSchema,
@@ -53,7 +54,7 @@ const advertsEssentials = z.object({
   brand: z.string(),
   model: z.string(),
   year: z.number().int().positive(),
-  fuel: z.enum([FuelType.FLEX, FuelType.HIBRIDO, FuelType.ELETRICO]),
+  fuel: z.string(),
   mileage: z.number().int(),
   color: z.string(),
   table_fipe: z.boolean(),
