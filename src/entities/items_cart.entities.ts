@@ -15,19 +15,18 @@ export class ItemsCart{
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({type:'int', nullable: false})
+    @Column({type:'int', nullable: true})
     qtd:number
 
-    @Column({ type: "int", nullable: false })
+    @Column({ type: "int", nullable: true })
     price: number;
 
-    @ManyToOne(() => Users, user => user.itemsCart,{onDelete:'CASCADE'})
+    @ManyToOne(() => Users, user => user.itemsCart,{onDelete:'CASCADE',nullable:true})
     @JoinColumn({ name: 'user_id' })
-    user_id: Users;
+    user_id:number;
   
-    @ManyToOne(() => Adverts, adverts => adverts.itemsCart, {onDelete:'CASCADE'})
+    @ManyToOne(() => Adverts, adverts => adverts.itemsCart, {onDelete:'CASCADE',nullable:true})
     @JoinColumn({ name: 'advert_id' })
-    product_id: Adverts;
-    advert_id: any;
+    advert_id: number;
 
 }
