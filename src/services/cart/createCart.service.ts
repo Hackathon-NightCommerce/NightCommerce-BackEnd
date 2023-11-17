@@ -5,7 +5,7 @@ import { ItemsCart } from '../../entities/items_cart.entities';
 import { Users } from '../../entities/users.entities';
 import {Adverts} from '../../entities/adverts.entities';
 
-export const createCartSerive = async (data:TCartRequest,user_id:number)=>{
+export const createCartSerive = async (data:TCartRequest,user_id:number):Promise<void>=>{
     
     const cartRepository = AppDataSource.getRepository(ItemsCart);
     const userRepository: Repository<Users> = AppDataSource.getRepository(Users);

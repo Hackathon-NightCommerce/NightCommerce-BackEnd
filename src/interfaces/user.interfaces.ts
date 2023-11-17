@@ -23,3 +23,4 @@ export type TUserResponse = z.infer<typeof userSchemaResponse>
 export type TUserRequestUpdate = z.infer<typeof userSchemaRequestUpdate>
 
 export type TUserAdverts = z.infer<typeof userAdvertsSchema>
+
