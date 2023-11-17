@@ -20,6 +20,7 @@ import { listOneUsersController } from "./../controllers/User/listOneUsers.contr
 import { updateUserController } from "./../controllers/User/updateUsers.controller";
 import { deleteUserController } from "./../controllers/User/deleteUsers.controller";
 import { listAllUserAdvertsController } from "./../controllers/User/listAllUserAdverts.controller";
+import { updateConfirmedAccountUserController} from "../controllers/User/updateConfirmedAccountUser.controller";
 
 export const userRoutes = Router();
 
@@ -54,3 +55,9 @@ userRoutes.delete(
   deleteUserController
 );
 userRoutes.get("/:id/adverts", userExistsbyId, listAllUserAdvertsController);
+
+userRoutes.patch(
+  '/:id/confirmedAccount',
+  userExistsbyId,
+  updateConfirmedAccountUserController
+);

@@ -3,6 +3,7 @@ import { Address } from "../../entities/address.entities";
 import { Users, UserType } from "../../entities/users.entities";
 import { TUserRequest, TUserResponse } from "../../interfaces/user.interfaces";
 import { userSchemaResponse } from "../../schemas/user.schema";
+import {sendEmailConfirmedAccount} from './sendEmailConfirmedAccount.service';
 
 export const createUserService = async (
   userData: TUserRequest
@@ -26,6 +27,8 @@ export const createUserService = async (
   });
 
   await userRepository.save(newUser);
+  
+  await sendEmailConfirmedAccount(newUser.email);
 
   return userSchemaResponse.parse(newUser);
 };

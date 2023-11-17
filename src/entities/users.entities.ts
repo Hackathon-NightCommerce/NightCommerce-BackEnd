@@ -43,7 +43,7 @@ export class Users {
   @Column({ type: "text", nullable: false })
   description: string
 
-  @Column({type:'boolean',nullable:false})
+  @Column({type:'boolean',default:false})
   confirmed:boolean
 
   @Column({ type: "text", nullable: false })

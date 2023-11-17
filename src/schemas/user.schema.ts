@@ -26,7 +26,6 @@ export const userSchema = z.object({
     message: "Data deve estar no formato YYYY-MM-DD",
   }),
   description: z.string(),
-  confirmed:z.boolean().default(false),
   password: z.string(),
   type_user: z.enum(["customer", "seller", "admin"]),
   address: addressSchema,
@@ -39,6 +38,7 @@ export const userSchemaRequest = userSchema.omit({ id: true }).extend({
 export const userSchemaResponse = userSchema
   .omit({ password: true, cpf: true })
   .extend({
+    confirmed:z.boolean(),
     address: addressSchema.omit({ user: true }),
   })
 
@@ -90,3 +90,4 @@ const advertsEssentials = z.object({
 export const userAdvertsSchema = userSchema
   .omit({ address: true, password: true })
   .extend({ adverts: advertsEssentials.array() })
+
