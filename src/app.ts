@@ -12,6 +12,7 @@ import { loginRoutes } from "./routes/login.routes";
 import { sendRoutes } from "./routes/sendEmailPassword.routes";
 import swaggerDocument from "./swagger.json";
 import {cartRoutes} from './routes/cart.routes';
+import {uploadRoutes} from './routes/uploadFile.routes';
 
 const app = express();
 
@@ -42,6 +43,7 @@ app.use("/adverts/images", imageGalleryRoutes);
 app.use("/recoverPassword", sendRoutes);
 app.use("/comments", commentsRoutes);
 app.use('/cart',cartRoutes)
+app.use('/uploadFile', uploadRoutes)
 
 app.use(handleAppError);
 

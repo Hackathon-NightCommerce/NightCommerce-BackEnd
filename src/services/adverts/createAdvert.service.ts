@@ -5,13 +5,16 @@ import { TAdvertRequest } from "../../interfaces/advert.interfaces";
 import { advertSchemaResponse } from "./../../schemas/advert.schema";
 import { ImageGallery } from "../../entities/imageGallery.entities";
 import { imageGallerySchema } from "../../schemas/imageGallery.schema";
+import { Product } from "../../controllers/uploadFile/uploadFile.controller";
 
 export const createAdvertService = async (
-  advertData: TAdvertRequest,
+  advertData:Product,
+  // advertData: TAdvertRequest,
   userId: number
 ): Promise<any> => {
   const userRepository = AppDataSource.getRepository(Users);
-  const { images, ...rest } = advertData;
+  const { ...rest } = advertData;
+  // const { images, ...rest } = advertData;
   const newImages: any = [];
   const user = await userRepository.findOne({
     where: { id: userId },
@@ -30,25 +33,25 @@ export const createAdvertService = async (
 
   await advertRepository.save(newAdvert);
 
-  if (images) {
-    const imageGalleryRepository = AppDataSource.getRepository(ImageGallery);
-    const imagesMap = images.map(async (item) => {
-      const newImage = imageGalleryRepository.create({
-        image: item,
-        adverts: newAdvert,
-      });
+  // if (images) {
+  //   const imageGalleryRepository = AppDataSource.getRepository(ImageGallery);
+  //   const imagesMap = images.map(async (item) => {
+  //     const newImage = imageGalleryRepository.create({
+  //       image: item,
+  //       adverts: newAdvert,
+  //     });
 
-      await imageGalleryRepository.save(newImage);
-      await newImages.push(imageGallerySchema.parse(newImage));
-      return imageGallerySchema.parse(newImage);
-    });
-    await Promise.all(imagesMap);
-  }
+  //     await imageGalleryRepository.save(newImage);
+  //     await newImages.push(imageGallerySchema.parse(newImage));
+  //     return imageGallerySchema.parse(newImage);
+  //   });
+  //   await Promise.all(imagesMap);
+  // }
 
   newAdvert.images = newImages;
 
   await advertRepository.save(newAdvert);
 
 
-  return advertSchemaResponse.parse(newAdvert);
+  // return advertSchemaResponse.parse(newAdvert);
 };
