@@ -1,15 +1,12 @@
 import {Request,Response} from 'express';
-import {mercadoPagoService} from '../../services/payments/mercadoPago.service';
+import {paymentService} from '../../services/payments/mercadoPago.service';
 import {TMethodPaymentRequest} from '../../interfaces/cart.interfaces';
 
 export const createPaymentController = async (req:Request, res:Response):Promise<void | Response>=>{
 
-    const {methodPayment,products}:TMethodPaymentRequest = req.body
+    const {products}:TMethodPaymentRequest = req.body
+    const linkPage = await paymentService({products} as TMethodPaymentRequest)
 
-    if(methodPayment === 'mercadoPago'){
-        mercadoPagoService({products} as TMethodPaymentRequest)
-    }
-
-    return res.send()
+    return res.json(linkPage)
 
 }

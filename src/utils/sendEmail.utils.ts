@@ -1,5 +1,5 @@
 import { createTransport } from "nodemailer";
-import { IEmailRequest } from "../interfaces/user.interfaces";
+import { IEmailRequest, TUserSendEmailNotificationSales } from "../interfaces/user.interfaces";
 import "dotenv/config";
 import Mailgen from "mailgen";
 
@@ -69,6 +69,11 @@ class EmailService {
     return emailtemplate;
   }
 
+
+
+
+
+
   sendEmailConfirmedAccountTemplate(
     userEmail: string,
     userName: string,
@@ -108,6 +113,103 @@ class EmailService {
       text: emailBody,
     };
     return emailtemplate;
+  }
+
+
+
+
+
+  async sendEmailNotificationSalesTemplate(
+    emails:Array<TUserSendEmailNotificationSales>
+  ){
+    const mailGenerator = new Mailgen({
+      theme: "default",
+      product: {
+        name: "Night Commerce",
+        link: "http://localhost:3000/users",
+      },
+    });
+
+    await Promise.all(
+      emails.map(async (user)=>{
+        const email = {
+          body: {
+            name: user.name,
+            intro:
+              `Parabens ${user.name}, voce acaba de fazer uma venda`,
+            action: {
+              instructions: `Voce vendeu o produto ${user.nameProduct}, quantidade: ${user.qtd}`,
+              button: {
+                color: "#4529E6",
+                text: "Entra no site",
+                link: ``
+              },
+            },
+            outro:
+              `Detalhes da entrega:Estado: ${user.userAddress.address.state} Cidade:${user.userAddress.address.city} Rua: ${user.userAddress.address.road} Numero: ${user.userAddress.address.number} Cep:${user.userAddress.address.cep}`,
+          },
+        };
+    
+        const emailBody = mailGenerator.generate(email);
+    
+        const emailtemplate = {
+          to: user.email,
+          subject: "Venda",
+          text: emailBody,
+        };
+  
+        await emailservice.sendEmail(emailtemplate);
+  
+      })
+    )
+  }
+
+
+
+
+
+
+  async sendEmailNoticeProductStockDown
+  (
+    nameSeller:string,
+    emailSeller:string,
+    nameProduct:string,
+    qtd:number
+  ){
+    const mailGenerator = new Mailgen({
+      theme: "default",
+      product: {
+        name: "Night Commerce",
+        link: "http://localhost:3000/users",
+      },
+    });
+
+    const email = {
+      body: {
+        name: nameSeller,
+        intro:
+          `Ola ${nameSeller}, voce esta com estoque baixo no produto ${nameProduct}`,
+        action: {
+          instructions: `O produto ${nameProduct} esta com apenas ${qtd}`,
+          button: {
+            color: "#4529E6",
+            text: "Atualizar estoque",
+            link: `link do site`
+          },
+        },
+        outro:
+          "sempre deixei os estoques dos seus produtos acima de 5 unidade",
+      },
+    };
+
+    const emailBody = mailGenerator.generate(email);
+
+    const emailtemplate = {
+      to: emailSeller,
+      subject: "Aviso estoque baixo",
+      text: emailBody,
+    };
+    await emailservice.sendEmail(emailtemplate);
   }
 }
 

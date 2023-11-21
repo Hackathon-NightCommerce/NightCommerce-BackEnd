@@ -9,8 +9,4 @@ export const cartSchemaRequest = z.object({
     }))
 })
 
-export const paymentSchemaRequest = cartSchemaRequest.merge(
-    z.object({
-        methodPayment:z.string()
-    })
-)
+export const paymentSchemaRequest = cartSchemaRequest

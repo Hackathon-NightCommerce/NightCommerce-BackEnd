@@ -91,3 +91,13 @@ export const userAdvertsSchema = userSchema
   .omit({ address: true, password: true })
   .extend({ adverts: advertsEssentials.array() })
 
+export const userSchemaSendEmailNotificationSales = userSchema.pick({
+  name:true,
+  email:true
+}).extend({
+  nameProduct:z.string(),
+  qtd:z.number(),
+  price:z.number(),
+  userAddress:userSchemaResponse.pick({address:true})
+})
+
