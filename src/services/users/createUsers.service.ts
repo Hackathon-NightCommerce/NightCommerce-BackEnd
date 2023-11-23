@@ -21,6 +21,7 @@ export const createUserService = async (
   const userType: UserType = type_user as UserType;
 
   const newUser = userRepository.create({
+    
     ...userFields,
     type_user: userType,
     address: newAddress,

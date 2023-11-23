@@ -1,18 +1,18 @@
 import { AppDataSource } from "../../data-source";
 import { Users } from "../../entities/users.entities";
-import { Adverts } from "../../entities/adverts.entities";
-import { TAdvertRequest } from "../../interfaces/advert.interfaces";
-import { advertSchemaResponse } from "./../../schemas/advert.schema";
-import { ImageGallery } from "../../entities/imageGallery.entities";
-import { imageGallerySchema } from "../../schemas/imageGallery.schema";
-import { Product } from "../../controllers/uploadFile/uploadFile.controller";
+import { Adverts, CategoryProduct } from "../../entities/adverts.entities";
+import {
+  TAdvertRequest,
+  TAdvertResponse,
+} from "../../interfaces/advert.interfaces";
+import { advertSchemaResponse } from "../../schemas/advert.schema";
 
 export const createAdvertService = async (
-  advertData:Product,
-  // advertData: TAdvertRequest,
+  advertData: TAdvertRequest,
   userId: number
-): Promise<any> => {
+): Promise<TAdvertResponse> => {
   const userRepository = AppDataSource.getRepository(Users);
+
   const { ...rest } = advertData;
   // const { images, ...rest } = advertData;
   const newImages: any = [];
@@ -28,6 +28,7 @@ export const createAdvertService = async (
 
   const newAdvert = advertRepository.create({
     ...rest,
+    category: advertData.category as CategoryProduct,
     user: user,
   });
 
@@ -48,10 +49,9 @@ export const createAdvertService = async (
   //   await Promise.all(imagesMap);
   // }
 
-  newAdvert.images = newImages;
+  // newAdvert.images = newImages;
 
   await advertRepository.save(newAdvert);
 
-
-  // return advertSchemaResponse.parse(newAdvert);
+  return advertSchemaResponse.parse(newAdvert);
 };

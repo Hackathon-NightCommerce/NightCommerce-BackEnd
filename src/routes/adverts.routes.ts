@@ -1,5 +1,5 @@
 import { Router } from "express";
-// import { createAdvertsController } from "../controllers/adverts/createAdverts.controller";
+import { createAdvertsController } from "../controllers/adverts/createAdverts.controller";
 import { listAdvertsController } from "../controllers/adverts/listAdverts.controller";
 import { listOneAdvertsController } from "../controllers/adverts/listOneAdvert.controller";
 import { deleteAdvertsController } from "../controllers/adverts/deleteAdverts.controller";
@@ -8,20 +8,23 @@ import {
   advertSchemaRequest,
   advertSchemaRequestUpdate,
 } from "../schemas/advert.schema";
-// import { filteredAdvertsController } from "./../controllers/adverts/listfiltersAdverts.controller";
 import { updateAdvertsController } from "../controllers/adverts/updateAdverts.controller";
-// import { createFiltersAdvertController } from "./../controllers/adverts/createFiltesAdvert.controller ";
-import { adminCantUseRoute, verifyAuthToken } from "../middlewares/authorization.middleware";
+import {
+  adminCantUseRoute,
+  verifyAuthToken,
+} from "../middlewares/authorization.middleware";
 import {
   advertsExistsbyId,
   isOwnerAdverts,
 } from "../middlewares/adverts.middlewares";
+import { createFiltersAdvertController } from "./../controllers/adverts/createFiltesAdvert.controller ";
+import { filteredAdvertsController } from './../controllers/adverts/listfiltersAdverts.controller';
 
 export const advertsRoutes = Router();
 
-// advertsRoutes.get("/adverts-filters", createFiltersAdvertController);
+advertsRoutes.get("/adverts-filters", createFiltersAdvertController);
 
-// advertsRoutes.get("/filtered", filteredAdvertsController);
+advertsRoutes.get("/filtered", filteredAdvertsController);
 
 advertsRoutes.get("/", listAdvertsController);
 
@@ -32,7 +35,7 @@ advertsRoutes.post(
   verifyAuthToken,
   adminCantUseRoute,
   schemaValidator(advertSchemaRequest),
-  // createAdvertsController
+  createAdvertsController
 );
 
 advertsRoutes.patch(
