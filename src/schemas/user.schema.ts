@@ -1,6 +1,7 @@
 import { z } from "zod"
 // import { FuelType } from "../entities/adverts.entities"
 import { imageGallerySchemaAdvert } from "./imageGallery.schema"
+import { CategoryProduct } from "../entities/adverts.entities"
 
 const addressSchema = z.object({
   id: z.number(),
@@ -73,17 +74,16 @@ export const allUsersSchema = userSchemaResponse.array()
 
 const advertsEssentials = z.object({
   id: z.number(),
+  name: z.string(),
   brand: z.string(),
-  model: z.string(),
-  year: z.number().int().positive(),
-  fuel: z.string(),
-  mileage: z.number().int(),
-  color: z.string(),
-  table_fipe: z.boolean(),
   price: z.number().positive(),
   description: z.string(),
   cover_image: z.string(),
+  information_additional: z.string().nullable(),
+  category: z.nativeEnum(CategoryProduct),
   published: z.boolean(),
+  qtd: z.number(),
+  promotion: z.boolean(),
   images: z.array(imageGallerySchemaAdvert),
 })
 

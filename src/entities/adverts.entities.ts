@@ -12,7 +12,7 @@ import { ItemsCart } from "./items_cart.entities";
 
 export enum CategoryProduct {
   Informatica = "Informatica",
-  Notekook = "Notekook",
+  Notekook = "Notebook",
   Impressoras = "Impressoras",
   SmartPhones = "SmartPhones",
   Domestico = "Domestico",
