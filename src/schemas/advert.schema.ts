@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { userSchema } from "./user.schema";
 import { CategoryProduct } from "../entities/adverts.entities";
+import { commentSchemaResponse } from "./comment.schema";
 
 export const advertSchema = z.object({
   id: z.number(),
@@ -28,13 +29,7 @@ export const advertSchema = z.object({
   //     image: z.string(),
   //   })
   // ),
-  comments: z.array(
-    z.object({
-      id: z.number(),
-      text: z.string(),
-      created_at: z.date(),
-    })
-  ),
+  comments:commentSchemaResponse.array()
 });
 
 export const advertSchemaRequest = advertSchema.omit({
