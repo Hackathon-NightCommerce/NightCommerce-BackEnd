@@ -16,6 +16,9 @@ export class Comments {
   @Column({ type: "text", nullable: false })
   comment: string;
 
+  @Column({ type: "int", nullable: true })
+  stars: number;
+
   @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
   created_at: Date;
 

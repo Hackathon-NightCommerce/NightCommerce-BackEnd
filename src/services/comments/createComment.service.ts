@@ -4,7 +4,7 @@ import { Users } from '../../entities/users.entities';
 import { Repository } from 'typeorm';
 import { commentSchemaResponse } from '../../schemas/comment.schema';
 
-export const createCommentsService = async(userId:number,advertId:number,comments:string)=>{
+export const createCommentsService = async(userId:number,advertId:number,comments:string,stars:number)=>{
 
     const commentRepository = AppDataSource.getRepository(Comments);
     const userRepository: Repository<Users> = AppDataSource.getRepository(Users);
@@ -16,6 +16,7 @@ export const createCommentsService = async(userId:number,advertId:number,comment
     
     const newComments = commentRepository.create({
         comment:comments,
+        stars:stars,
         user:user!,
         advert:{id:advertId},
         
