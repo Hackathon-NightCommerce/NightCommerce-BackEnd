@@ -36,8 +36,8 @@ class EmailService {
     const mailGenerator = new Mailgen({
       theme: "default",
       product: {
-        name: "Web Custons",
-        link: "http://localhost:3000/users",
+        name: "Night Commerce",
+        link: "http://localhost:5173/",
       },
     });
 
@@ -83,7 +83,7 @@ class EmailService {
       theme: "default",
       product: {
         name: "Night Commerce",
-        link: "http://localhost:3000/users",
+        link: "http://localhost:5173/",
       },
     });
 
@@ -97,7 +97,7 @@ class EmailService {
           button: {
             color: "#4529E6",
             text: "Confirmar Email",
-            link: `aqui vai o link da pagina para confirmar a conta`
+            link: `http://localhost:5173/confirmAccont/${idUser}`
           },
         },
         outro:
@@ -126,7 +126,7 @@ class EmailService {
       theme: "default",
       product: {
         name: "Night Commerce",
-        link: "http://localhost:3000/users",
+        link: "http://localhost:5173/",
       },
     });
 
@@ -142,7 +142,7 @@ class EmailService {
               button: {
                 color: "#4529E6",
                 text: "Entra no site",
-                link: ``
+                link: `http://localhost:5173/`
               },
             },
             outro:
@@ -180,7 +180,7 @@ class EmailService {
       theme: "default",
       product: {
         name: "Night Commerce",
-        link: "http://localhost:3000/users",
+        link: "http://localhost:5173/",
       },
     });
 
@@ -194,7 +194,7 @@ class EmailService {
           button: {
             color: "#4529E6",
             text: "Atualizar estoque",
-            link: `link do site`
+            link: `http://localhost:5173/`
           },
         },
         outro:

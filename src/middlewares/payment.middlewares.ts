@@ -34,7 +34,7 @@ export const checkQtdProductToPayment = async (req:Request,res:Response,next:Nex
 
                 }
             }else{
-                throw new AppError(`The product ${productRequest.name} does not have enough quantity in stock`, 409)
+                throw new AppError(`O produto ${productRequest.name} não tem quantidade suficiente em estoque`, 409)
             }
         })
     )
