@@ -21,7 +21,7 @@ export const listfiltersAdvertsService = async (
     pageReq + 1
   }&perPage=${perPageReq}`;
 
-  const { name, brand, category, promotion, minPrice, maxPrice } = where;
+  const { nameAdvert, brandAdvert, categoryAdvert, promotionAdvert, minPrice, maxPrice } = where;
 
   const [allAdvertsFilters, totalCount] = await advertRepository
     .createQueryBuilder("adverts")
@@ -29,13 +29,13 @@ export const listfiltersAdvertsService = async (
     .skip(perPageReq * (pageReq - 1))
     .leftJoinAndSelect("adverts.user", "Users")
     .where("1=1")
-    .andWhere(name ? "adverts.name = :name" : "1=1", { name: name })
-    .andWhere(brand ? "adverts.brand = :brand" : "1=1", { brand: brand })
-    .andWhere(promotion ? "adverts.promotion = :promotion" : "1=1", {
-      promotion: promotion,
+    .andWhere(nameAdvert ? "adverts.name = :name" : "1=1", { name: nameAdvert })
+    .andWhere(brandAdvert ? "adverts.brand = :brand" : "1=1", { brand: brandAdvert })
+    .andWhere(promotionAdvert ? "adverts.promotion = :promotion" : "1=1", {
+      promotion: promotionAdvert,
     })
-    .andWhere(category ? "adverts.category = :category" : "1=1", {
-      category: category as CategoryProduct,
+    .andWhere(categoryAdvert ? "adverts.category = :category" : "1=1", {
+      category: categoryAdvert as CategoryProduct,
     })
     .andWhere(minPrice !== undefined ? "adverts.price >= :minPrice" : "1=1", {
       minPrice: minPrice,
@@ -49,10 +49,10 @@ export const listfiltersAdvertsService = async (
 
   const nextAdverts = await advertRepository.find({
     where: {
-      name: where.name,
-      brand: where.brand,
-      category: where.category,
-      promotion: where.promotion,
+      name: where.nameAdvert,
+      brand: where.brandAdvert,
+      category: where.categoryAdvert,
+      promotion: where.promotionAdvert,
     },
     take: perPageReq,
     skip: perPageReq * pageReq,
