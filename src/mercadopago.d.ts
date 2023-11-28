@@ -1,1 +1,1 @@
-declare module 'mercadopago';
+declare module 'MercadoPago';
