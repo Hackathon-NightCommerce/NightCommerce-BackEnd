@@ -6,6 +6,8 @@ import {
   TAdvertResponse,
 } from "../../interfaces/advert.interfaces";
 import { advertSchemaResponse } from "../../schemas/advert.schema";
+import { imageGallerySchema } from "../../schemas/imageGallery.schema";
+import { ImageGallery } from "../../entities/imageGallery.entities";
 
 export const createAdvertService = async (
   advertData: TAdvertRequest,
@@ -13,8 +15,7 @@ export const createAdvertService = async (
 ): Promise<TAdvertResponse> => {
   const userRepository = AppDataSource.getRepository(Users);
 
-  const { ...rest } = advertData;
-  // const { images, ...rest } = advertData;
+  const { images, ...rest } = advertData;
   const newImages: any = [];
   const user = await userRepository.findOne({
     where: { id: userId },
@@ -30,28 +31,31 @@ export const createAdvertService = async (
     ...rest,
     category: advertData.category as CategoryProduct,
     user: user,
+    cover_image: images ? images[0] : "",
   });
 
   await advertRepository.save(newAdvert);
 
-  // if (images) {
-  //   const imageGalleryRepository = AppDataSource.getRepository(ImageGallery);
-  //   const imagesMap = images.map(async (item) => {
-  //     const newImage = imageGalleryRepository.create({
-  //       image: item,
-  //       adverts: newAdvert,
-  //     });
+  if (images) {
+    const imageGalleryRepository = AppDataSource.getRepository(ImageGallery);
+    const otherImages = images.splice(0, 1);
+    const imagesMap = otherImages.map(async (item) => {
+      const newImage = imageGalleryRepository.create({
+        image: item,
+        adverts: newAdvert,
+      });
 
-  //     await imageGalleryRepository.save(newImage);
-  //     await newImages.push(imageGallerySchema.parse(newImage));
-  //     return imageGallerySchema.parse(newImage);
-  //   });
-  //   await Promise.all(imagesMap);
-  // }
+      await imageGalleryRepository.save(newImage);
+      await newImages.push(imageGallerySchema.parse(newImage));
+    });
+    await Promise.all(imagesMap);
+  }
 
-  // newAdvert.images = newImages;
+  newAdvert.images = newImages;
 
   await advertRepository.save(newAdvert);
 
+  console.log(newAdvert);
+  
   return advertSchemaResponse.parse(newAdvert);
 };
