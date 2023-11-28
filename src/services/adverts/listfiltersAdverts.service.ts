@@ -21,7 +21,7 @@ export const listfiltersAdvertsService = async (
     pageReq + 1
   }&perPage=${perPageReq}`;
 
-  const { name, brand, category,promotion, minPrice, maxPrice } = where;
+  const { name, brand, category, promotion, minPrice, maxPrice } = where;
 
   const [allAdvertsFilters, totalCount] = await advertRepository
     .createQueryBuilder("adverts")
@@ -31,7 +31,9 @@ export const listfiltersAdvertsService = async (
     .where("1=1")
     .andWhere(name ? "adverts.name = :name" : "1=1", { name: name })
     .andWhere(brand ? "adverts.brand = :brand" : "1=1", { brand: brand })
-    .andWhere(promotion ? "adverts.promotion = :promotion" : "1=1", { promotion: promotion })
+    .andWhere(promotion ? "adverts.promotion = :promotion" : "1=1", {
+      promotion: promotion,
+    })
     .andWhere(category ? "adverts.category = :category" : "1=1", {
       category: category as CategoryProduct,
     })

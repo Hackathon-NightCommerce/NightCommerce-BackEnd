@@ -11,13 +11,18 @@ import { Comments } from "./comments.entities";
 import { ItemsCart } from "./items_cart.entities";
 
 export enum CategoryProduct {
-  Informatica = "Informatica",
-  Notekook = "Notebook",
-  Impressoras = "Impressoras",
-  SmartPhones = "SmartPhones",
-  Domestico = "Domestico",
-  Tvs = "Tvs",
-  Outros = "Outros",
+  Eletronicos = "Eletrônicos",
+  ModaEVestuario = "Moda e Vestuário",
+  CasaECozinha = "Casa e Cozinha",
+  LivrosEMidia = "Livros e Mídia",
+  BelezaECuidadosPessoais = "Beleza e Cuidados Pessoais",
+  EsportesELazer = "Esportes e Lazer",
+  BrinquedosEJogos = "Brinquedos e Jogos",
+  SaudeEBemEstar = "Saúde e Bem-Estar",
+  Automotivo = "Automotivo",
+  AlimentosEBebidas = "Alimentos e Bebidas",
+  MoveisEDecoracao = "Móveis e Decoração",
+  Outros="outros"
 }
 
 @Entity()
