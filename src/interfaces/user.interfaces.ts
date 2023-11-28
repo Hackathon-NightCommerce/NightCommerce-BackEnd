@@ -5,6 +5,7 @@ import {
   userSchemaRequest,
   userSchemaRequestUpdate,
   userSchemaResponse,
+  userSchemaSendEmailNotificationSales
 } from "../schemas/user.schema"
 
 
@@ -23,3 +24,6 @@ export type TUserResponse = z.infer<typeof userSchemaResponse>
 export type TUserRequestUpdate = z.infer<typeof userSchemaRequestUpdate>
 
 export type TUserAdverts = z.infer<typeof userAdvertsSchema>
+
+export type TUserSendEmailNotificationSales = z.infer<typeof userSchemaSendEmailNotificationSales>
+

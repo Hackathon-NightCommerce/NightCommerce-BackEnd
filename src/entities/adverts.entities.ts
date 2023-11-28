@@ -8,11 +8,21 @@ import {
 import { Users } from "./users.entities";
 import { ImageGallery } from "./imageGallery.entities";
 import { Comments } from "./comments.entities";
+import { ItemsCart } from "./items_cart.entities";
 
-export enum FuelType {
-  FLEX = "flex",
-  HIBRIDO = "hibrido",
-  ELETRICO = "eletrico"
+export enum CategoryProduct {
+  Eletronicos = "Eletrônicos",
+  ModaEVestuario = "Moda e Vestuário",
+  CasaECozinha = "Casa e Cozinha",
+  LivrosEMidia = "Livros e Mídia",
+  BelezaECuidadosPessoais = "Beleza e Cuidados Pessoais",
+  EsportesELazer = "Esportes e Lazer",
+  BrinquedosEJogos = "Brinquedos e Jogos",
+  SaudeEBemEstar = "Saúde e Bem-Estar",
+  Automotivo = "Automotivo",
+  AlimentosEBebidas = "Alimentos e Bebidas",
+  MoveisEDecoracao = "Móveis e Decoração",
+  Outros="outros"
 }
 
 @Entity()
@@ -20,26 +30,11 @@ export class Adverts {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column({ type: "varchar", length: 250 })
+  name: string;
+
   @Column({ type: "text", nullable: false })
   brand: string;
-
-  @Column({ type: "text", nullable: false })
-  model: string;
-
-  @Column({ type: "int", nullable: false })
-  year: number;
-
-  @Column({ type: "text", nullable: false })
-  fuel: FuelType;
-
-  @Column({ type: "int", nullable: false })
-  mileage: number;
-
-  @Column({ type: "text", nullable: false })
-  color: string;
-
-  @Column({ type: "boolean", nullable: false })
-  table_fipe: boolean;
 
   @Column({ type: "int", nullable: false })
   price: number;
@@ -50,10 +45,26 @@ export class Adverts {
   @Column({ type: "text", nullable: false })
   cover_image: string;
 
-  @Column({ type: "boolean", nullable: false })
+  @Column({ type: "varchar", length: 250, nullable: true })
+  information_additional: string | null;
+
+  @Column({
+    type: "enum",
+    enum: CategoryProduct,
+    default: CategoryProduct.Outros,
+  })
+  category: CategoryProduct;
+
+  @Column({ type: "boolean", nullable: true })
   published: boolean;
 
-  @ManyToOne(() => Users, (user) => user.adverts, { onDelete: 'CASCADE' } )
+  @Column({ type: "int", nullable: false })
+  qtd: number;
+
+  @Column({ type: "boolean", nullable: true })
+  promotion: boolean;
+
+  @ManyToOne(() => Users, (user) => user.adverts, { onDelete: "CASCADE" })
   user: Users;
 
   @OneToMany(() => ImageGallery, (gallery) => gallery.adverts)
@@ -61,4 +72,7 @@ export class Adverts {
 
   @OneToMany(() => Comments, (comment) => comment.advert)
   comments: Comments[];
+
+  @OneToMany(() => ItemsCart, (itemCart) => itemCart.advert_id)
+  itemsCart: ItemsCart[];
 }

@@ -9,12 +9,13 @@ export const listOneAdvertService = async (
 ): Promise<TAdvertResponse> => {
   const advertRepository: Repository<Adverts> = AppDataSource.getRepository(Adverts);
 
-
-
   const advert = await advertRepository.findOneOrFail({
     where: { id: advertId },
     relations: { user:true, images: true, comments: {user:true} }
   });
+
+
+  
   
   return advertSchemaResponse.parse(advert);
 };

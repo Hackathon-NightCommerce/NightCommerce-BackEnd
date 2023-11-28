@@ -1,6 +1,7 @@
 import { z } from "zod"
-import { FuelType } from "../entities/adverts.entities"
+// import { FuelType } from "../entities/adverts.entities"
 import { imageGallerySchemaAdvert } from "./imageGallery.schema"
+import { CategoryProduct } from "../entities/adverts.entities"
 
 const addressSchema = z.object({
   id: z.number(),
@@ -12,6 +13,7 @@ const addressSchema = z.object({
   complement: z.string(),
   user: z.number(),
 })
+
 
 export const userSchema = z.object({
   id: z.number(),
@@ -37,8 +39,30 @@ export const userSchemaRequest = userSchema.omit({ id: true }).extend({
 export const userSchemaResponse = userSchema
   .omit({ password: true, cpf: true })
   .extend({
+    confirmed:z.boolean(),
     address: addressSchema.omit({ user: true }),
   })
+
+export const userSchemaResponseItemsCart = userSchema.omit({password:true,address:true,}).extend({
+  itemsCart:z.array(z.object({
+    id:z.number(),
+    qtd:z.number(),
+    price:z.number(),
+    advert_id:z.object({
+      id: z.number(),
+      name: z.string(),
+      brand: z.string(),
+      price: z.number(),
+      description: z.string(),
+      cover_image: z.string(),
+      information_additional: z.string(),
+      category: z.string(),
+      published: z.boolean(),
+      qtd: z.number(),
+      promotion: z.boolean(),
+    })
+  }))})
+
 
 export const userSchemaRequestUpdate = userSchemaRequest
   .extend({
@@ -50,20 +74,30 @@ export const allUsersSchema = userSchemaResponse.array()
 
 const advertsEssentials = z.object({
   id: z.number(),
+  name: z.string(),
   brand: z.string(),
-  model: z.string(),
-  year: z.number().int().positive(),
-  fuel: z.enum([FuelType.FLEX, FuelType.HIBRIDO, FuelType.ELETRICO]),
-  mileage: z.number().int(),
-  color: z.string(),
-  table_fipe: z.boolean(),
   price: z.number().positive(),
   description: z.string(),
   cover_image: z.string(),
+  information_additional: z.string().nullable(),
+  category: z.nativeEnum(CategoryProduct),
   published: z.boolean(),
+  qtd: z.number(),
+  promotion: z.boolean(),
   images: z.array(imageGallerySchemaAdvert),
 })
 
 export const userAdvertsSchema = userSchema
   .omit({ address: true, password: true })
   .extend({ adverts: advertsEssentials.array() })
+
+export const userSchemaSendEmailNotificationSales = userSchema.pick({
+  name:true,
+  email:true
+}).extend({
+  nameProduct:z.string(),
+  qtd:z.number(),
+  price:z.number(),
+  userAddress:userSchemaResponse.pick({address:true})
+})
+

@@ -1,16 +1,20 @@
 import { AppDataSource } from "../../data-source";
 import { Users } from "../../entities/users.entities";
-import { Adverts } from "../../entities/adverts.entities";
-import { TAdvertRequest } from "../../interfaces/advert.interfaces";
-import { advertSchemaResponse } from "./../../schemas/advert.schema";
-import { ImageGallery } from "../../entities/imageGallery.entities";
+import { Adverts, CategoryProduct } from "../../entities/adverts.entities";
+import {
+  TAdvertRequest,
+  TAdvertResponse,
+} from "../../interfaces/advert.interfaces";
+import { advertSchemaResponse } from "../../schemas/advert.schema";
 import { imageGallerySchema } from "../../schemas/imageGallery.schema";
+import { ImageGallery } from "../../entities/imageGallery.entities";
 
 export const createAdvertService = async (
   advertData: TAdvertRequest,
   userId: number
-): Promise<any> => {
+): Promise<TAdvertResponse> => {
   const userRepository = AppDataSource.getRepository(Users);
+
   const { images, ...rest } = advertData;
   const newImages: any = [];
   const user = await userRepository.findOne({
@@ -25,11 +29,14 @@ export const createAdvertService = async (
 
   const newAdvert = advertRepository.create({
     ...rest,
+    category: advertData.category as CategoryProduct,
     user: user,
+    cover_image: images ? images[0] : "",
   });
 
   await advertRepository.save(newAdvert);
 
+  images?.splice(0, 1);
   if (images) {
     const imageGalleryRepository = AppDataSource.getRepository(ImageGallery);
     const imagesMap = images.map(async (item) => {
@@ -37,10 +44,8 @@ export const createAdvertService = async (
         image: item,
         adverts: newAdvert,
       });
-
       await imageGalleryRepository.save(newImage);
       await newImages.push(imageGallerySchema.parse(newImage));
-      return imageGallerySchema.parse(newImage);
     });
     await Promise.all(imagesMap);
   }
@@ -48,7 +53,6 @@ export const createAdvertService = async (
   newAdvert.images = newImages;
 
   await advertRepository.save(newAdvert);
-
 
   return advertSchemaResponse.parse(newAdvert);
 };

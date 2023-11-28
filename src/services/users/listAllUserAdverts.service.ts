@@ -15,5 +15,6 @@ export const listAllUserAdvertsService = async (
       adverts: { images: true },
     },
   })
+
   return userAdvertsSchema.parse(userAdverts)
 }

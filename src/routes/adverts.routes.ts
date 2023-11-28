@@ -3,25 +3,36 @@ import { createAdvertsController } from "../controllers/adverts/createAdverts.co
 import { listAdvertsController } from "../controllers/adverts/listAdverts.controller";
 import { listOneAdvertsController } from "../controllers/adverts/listOneAdvert.controller";
 import { deleteAdvertsController } from "../controllers/adverts/deleteAdverts.controller";
-import { schemaValidator } from "../middlewares/schema.middlewares";
+import {
+  schemaValidator,
+} from "../middlewares/schema.middlewares";
 import {
   advertSchemaRequest,
   advertSchemaRequestUpdate,
 } from "../schemas/advert.schema";
-import { filteredAdvertsController } from "./../controllers/adverts/listfiltersAdverts.controller";
 import { updateAdvertsController } from "../controllers/adverts/updateAdverts.controller";
-import { createFiltersAdvertController } from "./../controllers/adverts/createFiltesAdvert.controller ";
-import { adminCantUseRoute, verifyAuthToken } from "../middlewares/authorization.middleware";
+import {
+  adminCantUseRoute,
+  verifyAuthToken,
+} from "../middlewares/authorization.middleware";
 import {
   advertsExistsbyId,
   isOwnerAdverts,
 } from "../middlewares/adverts.middlewares";
+import { createFiltersAdvertController } from "./../controllers/adverts/createFiltesAdvert.controller ";
+import { filteredAdvertsController } from "./../controllers/adverts/listfiltersAdverts.controller";
+import { searchAdvertsController } from "../controllers/adverts/searchAdverts.controller";
+
+
 
 export const advertsRoutes = Router();
+
 
 advertsRoutes.get("/adverts-filters", createFiltersAdvertController);
 
 advertsRoutes.get("/filtered", filteredAdvertsController);
+
+advertsRoutes.get("/sherad", searchAdvertsController);
 
 advertsRoutes.get("/", listAdvertsController);
 
