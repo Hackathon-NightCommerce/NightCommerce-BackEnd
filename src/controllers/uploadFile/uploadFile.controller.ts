@@ -30,12 +30,12 @@ export const uploadFileController = async (
       brand: productsLineSplit[1],
       price: Number(productsLineSplit[2]),
       description: productsLineSplit[3],
-      cover_image: productsLineSplit[4],
       information_additional: productsLineSplit[5],
       category: productsLineSplit[6] as CategoryProduct,
       published: productsLineSplit[7].toLowerCase().trim() === "true",
       qtd: Number(productsLineSplit[8]),
       promotion: productsLineSplit[9].toLowerCase().trim() === "true",
+      images: [],
     });
   }
   products.splice(0, 1);

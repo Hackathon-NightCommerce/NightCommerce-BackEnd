@@ -1,18 +1,14 @@
 import { Request, Response, NextFunction } from "express";
 import { ZodSchema } from "zod";
 
+export const schemaValidator =
+  (schema: ZodSchema) =>
+  (req: Request, res: Response, next: NextFunction): void => {
 
+ 
+    const validateData = schema.parse(req.body);
 
-export const schemaValidator = (schema: ZodSchema) => (req: Request, res: Response, next: NextFunction) :void=> {
-    
-    
-    const validateData = schema.parse(req.body)
-    
+    req.body = validateData;
 
-
-    req.body = validateData
-
-    
-    return next()
-
-}
+    return next();
+  };

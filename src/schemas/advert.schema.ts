@@ -23,22 +23,25 @@ export const advertSchema = z.object({
     phone: true,
     description: true,
   }),
-  // images: z.array(
-  //   z.object({
-  //     id: z.number(),
-  //     image: z.string(),
-  //   })
-  // ),
-  comments:commentSchemaResponse.array()
+  images: z.array(
+    z.object({
+      id: z.number(),
+      image: z.string(),
+    })
+  ),
+  comments: commentSchemaResponse.array(),
 });
 
-export const advertSchemaRequest = advertSchema.omit({
-  id: true,
-  user: true,
-  comments: true,
-  itemsCart: true,
-});
-// .extend({ images: z.string().array().optional() });
+export const advertSchemaRequest = advertSchema
+  .omit({
+    id: true,
+    user: true,
+    comments: true,
+    itemsCart: true,
+    cover_image: true,
+    images: true,
+  })
+  .extend({ images: z.string().array().optional() });
 
 export const advertSchemaRequestUpdate = advertSchemaRequest.partial();
 

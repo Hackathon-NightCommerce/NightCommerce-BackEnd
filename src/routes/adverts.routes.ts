@@ -3,7 +3,9 @@ import { createAdvertsController } from "../controllers/adverts/createAdverts.co
 import { listAdvertsController } from "../controllers/adverts/listAdverts.controller";
 import { listOneAdvertsController } from "../controllers/adverts/listOneAdvert.controller";
 import { deleteAdvertsController } from "../controllers/adverts/deleteAdverts.controller";
-import { schemaValidator } from "../middlewares/schema.middlewares";
+import {
+  schemaValidator,
+} from "../middlewares/schema.middlewares";
 import {
   advertSchemaRequest,
   advertSchemaRequestUpdate,
@@ -21,9 +23,12 @@ import { createFiltersAdvertController } from "./../controllers/adverts/createFi
 import { filteredAdvertsController } from "./../controllers/adverts/listfiltersAdverts.controller";
 import { searchAdvertsController } from "../controllers/adverts/searchAdverts.controller";
 
+
+
 export const advertsRoutes = Router();
 
- advertsRoutes.get("/adverts-filters", createFiltersAdvertController);
+
+advertsRoutes.get("/adverts-filters", createFiltersAdvertController);
 
 advertsRoutes.get("/filtered", filteredAdvertsController);
 
