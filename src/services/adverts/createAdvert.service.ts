@@ -36,15 +36,14 @@ export const createAdvertService = async (
 
   await advertRepository.save(newAdvert);
 
+  images?.splice(0, 1);
   if (images) {
     const imageGalleryRepository = AppDataSource.getRepository(ImageGallery);
-    const otherImages = images.splice(0, 1);
-    const imagesMap = otherImages.map(async (item) => {
+    const imagesMap = images.map(async (item) => {
       const newImage = imageGalleryRepository.create({
         image: item,
         adverts: newAdvert,
       });
-
       await imageGalleryRepository.save(newImage);
       await newImages.push(imageGallerySchema.parse(newImage));
     });
@@ -55,7 +54,5 @@ export const createAdvertService = async (
 
   await advertRepository.save(newAdvert);
 
-  console.log(newAdvert);
-  
   return advertSchemaResponse.parse(newAdvert);
 };

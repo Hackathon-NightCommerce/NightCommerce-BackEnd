@@ -10,5 +10,6 @@ export const listOneAdvertsController = async (
   const advertUser: TAdvertResponse = await listOneAdvertService(
     Number(req.params.id)
   );
+  
   return res.json(advertUser);
 };
