@@ -18,13 +18,16 @@ import {
   isOwnerAdverts,
 } from "../middlewares/adverts.middlewares";
 import { createFiltersAdvertController } from "./../controllers/adverts/createFiltesAdvert.controller ";
-import { filteredAdvertsController } from './../controllers/adverts/listfiltersAdverts.controller';
+import { filteredAdvertsController } from "./../controllers/adverts/listfiltersAdverts.controller";
+import { searchAdvertsController } from "../controllers/adverts/searchAdverts.controller";
 
 export const advertsRoutes = Router();
 
-advertsRoutes.get("/adverts-filters", createFiltersAdvertController);
+ advertsRoutes.get("/adverts-filters", createFiltersAdvertController);
 
 advertsRoutes.get("/filtered", filteredAdvertsController);
+
+advertsRoutes.get("/sherad", searchAdvertsController);
 
 advertsRoutes.get("/", listAdvertsController);
 
