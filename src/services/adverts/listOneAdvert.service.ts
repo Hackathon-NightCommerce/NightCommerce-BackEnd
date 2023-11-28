@@ -14,6 +14,8 @@ export const listOneAdvertService = async (
     relations: { user:true, images: true, comments: {user:true} }
   });
 
+
+  
   
   return advertSchemaResponse.parse(advert);
 };
